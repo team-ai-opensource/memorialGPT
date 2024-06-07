@@ -21,7 +21,11 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <nav class="navbar navbar-light bg-light">
@@ -36,11 +40,39 @@
           />
         </a>
       </div>
-      
     </nav>
     <div class="">
-      <aside class="position-fixed h-100 bg-light" style="width: 160px;">사이드바</aside>
-      <main style="margin-left: 160px;">{% block content %} {% endblock %}</main>
+      <aside
+        class="position-fixed h-100 bg-light"
+        style="width: 200px; padding: 16px"
+      >
+        <div class="mb-3">
+          <label for="message" class="form-label">메세지를 입력하세요.</label>
+          <textarea class="form-control" id="message" rows="3"></textarea>
+          <div class="answer"></div>
+          <button type="button" class="btn btn-primary" id="chat_btn">
+            검색하기
+          </button>
+        </div>
+      </aside>
+      <main style="margin-left: 200px">{% block content %} {% endblock %}</main>
     </div>
+    <script>
+      $("#chat_btn").on("click", function () {
+        message = $("#message").val();
+        $.ajax({
+          url: "chat",
+          type: "POST",
+          data: {
+            message: message,
+            csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF 토큰
+          },
+          success: function (response) {
+            console.log(response)
+            $(".answer").html(response);
+          },
+        });
+      });
+    </script>
   </body>
 </html>

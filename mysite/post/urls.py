@@ -6,4 +6,5 @@ urlpatterns = [
     path('post/<int:id>', views.post_page),
     path('create', views.create_post),
     path('update/<int:id>', views.update_post),
+    path('chat', views.post_chat),
 ]
