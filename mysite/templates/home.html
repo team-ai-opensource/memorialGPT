@@ -5,76 +5,42 @@
 {%block content %}
 <h1>Home</h1>
 <p>Check out my <a href="/about">About</a> page.</p>
-<div class="container row row-cols-3">
-  <div class="col">
+
+<button type="button" class="btn btn-primary" id="create_btn">빈메모생성</button>
+
+<section class="container row row-cols-3">
+  {% for post in posts %}
+  <artile class="col">
     <div class="card" style="">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <h5 class="card-title">{{ post.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ post.date}}</h6>
         <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {{ post.content}}
         </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
       </div>
+      <a href="/post/{{ post.id }}">자세히보기</a>
     </div>
-  </div>
-  <div class="col">
-    <div class="card" style="">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
-  </div>
+    
+  </artile>
+  {% endfor %}
 </div>
+<script>
+  $('#create_btn').on('click', function () {
+    $.ajax({
+      url: 'create',
+      type: 'POST',
+      data: {
+          title: "빈 메모",
+          content: "",
+          csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+      },
+      success: function(response) {
+          console.log("빈 메모 생성")
+          location.reload()
+      }
+    });
+  })
+
+</script>
 {%endblock%}

@@ -1,7 +1,40 @@
 {% extends 'layout.html' %} 
 
-{% block title %} Home {% endblock %} 
+{% block title %} Detail {% endblock %} 
 
 {%block content %}
-<div>디테일페이지</div>
+<div class="p-4">
+    <h1>디테일페이지</h1>
+    <button type="button" class="btn btn-primary" id="update_btn">수정완료</button>
+
+    <div>{{ post.date }}</div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">제목</span>
+        <input type="text" class="form-control" placeholder="제목" aria-label="Title" aria-describedby="title" value="{{ post.title }}" id="title">
+    </div>
+
+    <textarea id="content" class="form-control" style="height: 400px;" aria-label="With textarea">{{ post.content }}</textarea>
+</div>
+<script>
+    $('#update_btn').on('click', function () {
+
+        console.log("dksd{{post.id}}");
+        title = $('#title').val();
+        content = $('#content').val();
+
+        $.ajax({
+            url: '/update/{{post.id}}' ,
+            type: 'POST',
+            data: {
+                title: title,
+                content: content,
+                csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+            },
+            success: function(response) {
+                location.href ="/"
+            }
+        });
+    })
+  </script>
+
 {% endblock%}
