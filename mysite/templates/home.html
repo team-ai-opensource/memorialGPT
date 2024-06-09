@@ -3,16 +3,16 @@
 {% block title %} Home {% endblock %}
 
 {%block content %}
-<div>
+<div class = "home">
     <div class="container mt-4">
         <div class="card-container">
-            <a href = "#" class="card">
+            <div class="card border-danger create-note-card" id = "create_note">
                 <div class="card-body">
                     <p class="card-text">새 메모 생성</p>
                 </div>
-            </a>
+            </div>
             {% for post in posts %}
-            <a href = "/post/{{post.id}}" class="card">
+            <a href="/post/{{post.id}}" class="card text-bg-warning">
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.content }}</p>
@@ -22,22 +22,5 @@
             {% endfor %}
         </div>
     </div>
-    <script>
-        $('#create_btn').on('click', function () {
-            $.ajax({
-                url: 'create',  // 서버의 엔드포인트 URL
-                type: 'POST',
-                data: {
-                    title: "빈 메모",
-                    content: "",
-                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
-                },
-                success: function (response) {
-                    console.log("빈 메모 생성")
-                    location.reload()
-                }
-            });
-        })
-    </script>
 </div>
 {%endblock%}

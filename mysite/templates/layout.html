@@ -19,31 +19,46 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 sidebar" id="sidebar">
+        <nav class="sidebar" id="sidebar">
             <!-- 사이드바 내용 -->
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link active" href=" "> 홈 </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> 메뉴 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> 메뉴 3</a>
+                    <a class="nav-link" href="#"> 설정 </a>
                 </li>
             </ul>
         </nav>
-        <div class="col content" id="content">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary" style="border-bottom:2px solid #FCA311; ">
+        <div class="col content custom-col" id="content">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary custom-nav">
                 <div class="container-fluid d-flex justify-content-between">
-                    <button class="btn btn-primary" type="button" id="sidebarToggle">
-                        사이드바 토글
+                    <button class="btn btn-primary custom-btn" type="button" id="sidebarToggle">
+                        메뉴
                     </button>
                     <a class="navbar-brand" href=" " style="font-family: 'Diphylleia',serif;">기록 흥신소</a>
                 </div>
             </nav>
             <div class="main_content">
                 <main>{% block content %} {% endblock %}</main>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary chat-btn custom-btn" id="chatToggle">
+        어떤 기록을 찾아드리면 되겠소?
+    </button>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            채팅
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" id="chatClose"></button>
+        </div>
+        <div class="chat-body">
+            <div class="answer">채팅 내용을 여기에 표시합니다.</div>
+        </div>
+        <div class="chat-footer">
+            <div class="input-group">
+                <label for="message"></label><input type="text" class="form-control" id="message" placeholder="메시지를 입력하세요">
+                <button class="btn btn-primary custom-btn" type="button" id="chat_btn">전송</button>
             </div>
         </div>
     </div>
@@ -59,7 +74,13 @@
         $('#sidebarToggle').on('click', function () {
             $('#sidebar').toggleClass('show');
             $('#content').toggleClass('shift');
+        });
+        $('#chatToggle').on('click', function () {
+            $('#chatWindow').toggle();
+        });
 
+        $('#chatClose').on('click', function () {
+            $('#chatWindow').hide();
         });
         $("#chat_btn").on("click", function () {
             let message = $("#message").val();
@@ -76,6 +97,40 @@
                 },
             });
         });
+        $('#create_note').on('click', function () {
+            $.ajax({
+                url: 'create',  // 서버의 엔드포인트 URL
+                type: 'POST',
+                data: {
+                    title: "빈 메모",
+                    content: "",
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function (response) {
+                    console.log("빈 메모 생성")
+                    location.reload()
+                }
+            });
+        });
+        $('#update_btn').on('click', function () {
+
+            title = $('#title').val();
+            content = $('#content').val();
+
+            $.ajax({
+                url: '/update/{{post.id}}' ,
+                type: 'POST',
+                data: {
+                    title: title,
+                    content: content,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function(response) {
+                    location.href ="/"
+                }
+            });
+        });
+
     });
 </script>
 </body>

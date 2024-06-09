@@ -16,24 +16,7 @@
     <textarea id="content" class="form-control" style="height: 400px;" aria-label="With textarea">{{ post.content }}</textarea>
 </div>
 <script>
-    $('#update_btn').on('click', function () {
 
-        title = $('#title').val();
-        content = $('#content').val();
-
-        $.ajax({
-            url: '/update/{{post.id}}' ,
-            type: 'POST',
-            data: {
-                title: title,
-                content: content,
-                csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
-            },
-            success: function(response) {
-                location.href ="/"
-            }
-        });
-    })
   </script>
 
 {% endblock%}
