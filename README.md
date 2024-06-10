@@ -2,7 +2,7 @@
 
 '''
 (가상환경 만들기)
-python -m venv venv 
+py -m venv venv 
 
 (윈도우의 경우)
 ./venv/Scripts/activate
