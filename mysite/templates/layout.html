@@ -1,78 +1,151 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %} Django App {% endblock %}</title>
-    {% comment %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <script src="{% static 'js/main.js' %}" defer></script>
-    {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}"/>
+    <!--    <script src="{% static 'js/main.js' %}" defer></script>-->
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="/docs/5.0/assets/brand/bootstrap-logo.svg"
-            alt=""
-            width="30"
-            height="24"
-            class="d-inline-block align-text-top"
-          />
-        </a>
-      </div>
-    </nav>
-    <div class="">
-      <aside
-        class="position-fixed h-100 bg-light"
-        style="width: 200px; padding: 16px"
-      >
-        <div class="mb-3">
-          <label for="message" class="form-label">메세지를 입력하세요.</label>
-          <textarea class="form-control" id="message" rows="3"></textarea>
-          <div class="answer"></div>
-          <button type="button" class="btn btn-primary" id="chat_btn">
-            검색하기
-          </button>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="sidebar" id="sidebar">
+            <!-- 사이드바 내용 -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href=" "> 홈 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> 설정 </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="col content custom-col" id="content">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary custom-nav">
+                <div class="container-fluid d-flex justify-content-between">
+                    <button class="btn btn-primary custom-btn" type="button" id="sidebarToggle">
+                        메뉴
+                    </button>
+                    <a class="navbar-brand" href=" " style="font-family: 'Diphylleia',serif;">기록 흥신소</a>
+                </div>
+            </nav>
+            <div class="main_content">
+                <main>{% block content %} {% endblock %}</main>
+            </div>
         </div>
-      </aside>
-      <main style="margin-left: 200px">{% block content %} {% endblock %}</main>
     </div>
-    <script>
-      $("#chat_btn").on("click", function () {
-        message = $("#message").val();
-        $.ajax({
-          url: "chat",
-          type: "POST",
-          data: {
-            message: message,
-            csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF 토큰
-          },
-          success: function (response) {
-            console.log(response)
-            $(".answer").html(response);
-          },
+    <button class="btn btn-primary chat-btn custom-btn" id="chatToggle">
+        어떤 기록을 찾아드리면 되겠소?
+    </button>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            채팅
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" id="chatClose"></button>
+        </div>
+        <div class="chat-body">
+            <div class="answer">채팅 내용을 여기에 표시합니다.</div>
+        </div>
+        <div class="chat-footer">
+            <div class="input-group">
+                <label for="message"></label><input type="text" class="form-control" id="message" placeholder="메시지를 입력하세요">
+                <button class="btn btn-primary custom-btn" type="button" id="chat_btn">전송</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#sidebarToggle').on('click', function () {
+            $('#sidebar').toggleClass('show');
+            $('#content').toggleClass('shift');
         });
-      });
-    </script>
-  </body>
+        $('#chatToggle').on('click', function () {
+            $('#chatWindow').toggle();
+        });
+
+        $('#chatClose').on('click', function () {
+            $('#chatWindow').hide();
+        });
+        $("#chat_btn").on("click", function () {
+            let message = $("#message").val();
+            $.ajax({
+                url: "chat",
+                type: "POST",
+                data: {
+                    message: message,
+                    csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF 토큰
+                },
+                success: function (response) {
+                    console.log(response)
+                    $(".answer").html(response);
+                },
+            });
+        });
+        $('#create_note').on('click', function () {
+            $.ajax({
+                url: 'create',  // 서버의 엔드포인트 URL
+                type: 'POST',
+                data: {
+                    title: "빈 메모",
+                    content: "",
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function (response) {
+                    console.log("빈 메모 생성")
+                    location.reload()
+                }
+            });
+        });
+        $('#update_btn').on('click', function () {
+
+            title = $('#detail_title').val();
+            content = $('#detail_content').val();
+
+            $.ajax({
+                url: '/update/{{post.id}}' ,
+                type: 'POST',
+                data: {
+                    title: title,
+                    content: content,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function(response) {
+                    location.href ="/"
+                }
+            });
+        });
+
+        $('#delete_btn').on('click', function () {
+
+            $.ajax({
+                url: '/delete/{{post.id}}' ,
+                type: 'DELETE',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function(response) {
+                    location.href ="/"
+                }
+            });
+        });
+
+    });
+</script>
+</body>
 </html>

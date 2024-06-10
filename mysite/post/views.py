@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 import json
+from django.views.decorators.csrf import csrf_exempt
+
 
 # BASE_DIR 설정
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +41,6 @@ def update_post(request, id):
         # POST 요청에서 보낸 데이터로 객체의 속성 업데이트
         title = request.POST.get('title')
         content = request.POST.get('content')
-
 
         Post.objects.filter(id=id).update(title=title, content=content)
 
@@ -80,8 +81,16 @@ def post_chat(request):
 
         return HttpResponse(message)
 
-    
-            
+@csrf_exempt
+def delete_post(request, id):
+    # print(request)    
+    if request.method == 'DELETE':        
+        # 특정 ID로 BlogPost 객체 가져오기
+        post = get_object_or_404(Post, id=id)
+        # 객체 삭제
+        post.delete()
+
+        return HttpResponse('성공')
 
 
 

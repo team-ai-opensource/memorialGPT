@@ -1,46 +1,26 @@
-{% extends 'layout.html' %} 
+{% extends 'layout.html' %}
 
-{% block title %} Home {% endblock %} 
+{% block title %} Home {% endblock %}
 
 {%block content %}
-<h1>Home</h1>
-<p>Check out my <a href="/about">About</a> page.</p>
-
-<button type="button" class="btn btn-primary" id="create_btn">빈메모생성</button>
-
-<section class="container row row-cols-3">
-  {% for post in posts %}
-  <artile class="col">
-    <div class="card" style="">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ post.date}}</h6>
-        <p class="card-text">
-          {{ post.content}}
-        </p>
-      </div>
-      <a href="/post/{{ post.id }}">자세히보기</a>
+<div class = "home">
+    <div class="container mt-4">
+        <div class="card-container">
+            <div class="card border-danger create-note-card" id = "create_note">
+                <div class="card-body">
+                    <p class="card-text">새 메모 생성</p>
+                </div>
+            </div>
+            {% for post in posts %}
+            <a href="/post/{{post.id}}" class="card text-bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ post.date }}</h6>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
     </div>
-    
-  </artile>
-  {% endfor %}
 </div>
-<script>
-  $('#create_btn').on('click', function () {
-    $.ajax({
-      url: 'create',  // 서버의 엔드포인트 URL
-      type: 'POST',
-      data: {
-          title: "빈 메모",
-          content: "",
-          csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
-      },
-      success: function(response) {
-          console.log("빈 메모 생성")
-          location.reload()
-      }
-    });
-  })
-
-</script>
 {%endblock%}
