@@ -7,18 +7,19 @@
   <div class="col-md-12">
     <div class="row justify-content-center">
       <h1 style="margin-bottom: 16px; font-family: 'Diphylleia',serif;">My Memory</h1>
-      <div class="card text-bg-warning custom-card">
+      <div class="custom-card">
 
-        <div class="form-floating mb-3">
+        <div class="mb-3">
+          <span class="badge text-bg-light">제목</span>
           <input type="text" class="form-control transparent-input" placeholder="제목" aria-label="Title"
             aria-describedby="title" value="{{ post.title }}" id="detail_title">
-          <label for="detail_title" class="custom-label">제목</label>
+            
         </div>
         <hr>
-        <div class="form-floating mb-3">
-          <textarea id="detail_content" class="form-control transparent-input" style="height: 400px;"
+        <div class="mb-3">
+          <span class="badge text-bg-light">내용</span>
+          <textarea id="detail_content" class="form-control transparent-input" style="height: 300px;"
             aria-label="With textarea">{{ post.content }}</textarea>
-          <label for="detail_content" class="custom-label">내용</label>
           <div>{{ post.date }}</div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="button" class="btn btn-primary btn-sm" id="update_btn">수정완료</button>

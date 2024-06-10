@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css'%}"/>
     <!--    <script src="{% static 'js/main.js' %}" defer></script>-->
 
@@ -23,10 +24,10 @@
             <!-- 사이드바 내용 -->
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/post_list"> 홈 </a>
+                    <a class="nav-link active" href="/">홈화면</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> 설정 </a>
+                    <a class="nav-link" href="/post_list">기록흥신소</a>
                 </li>
             </ul>
         </nav>
@@ -53,7 +54,7 @@
             <button type="button" class="btn-close btn-close-white" aria-label="Close" id="chatClose"></button>
         </div>
         <div class="chat-body">
-            <div class="answer">채팅 내용을 여기에 표시합니다.</div>
+            <div class="answer">... 😎</div>
         </div>
         <div class="chat-footer">
             <div class="input-group">
@@ -156,7 +157,7 @@
             });
         });
 
-        $('#delete_home_btn').on('click', function (e) {
+        $('.delete-icon').on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
 
@@ -174,8 +175,14 @@
             });
         });
 
+        $('.modify-btn').on('click', function (e) {
+            let id = $(this).data('id');
+            console.log(id);
+            location.href = '/post/' + id;
+        });
+
         $('#start').on('click', function (e) {
-            location.href ="/post_list"
+            location.href = "/post_list"
         })
 
 
