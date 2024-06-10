@@ -19,6 +19,8 @@ API_KEY = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI(api_key=API_KEY)
 
+def home(request):
+    return render(request, 'home.html')
 
 def read_post(request):
     posts = Post.objects.order_by('-date').all()

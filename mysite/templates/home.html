@@ -1,0 +1,47 @@
+{% extends 'layout.html' %} 
+{% block title %} Home {% endblock %} 
+
+{%block content %}
+<style>
+    .home_box {
+        background-color: #0b0c10;
+        color: #c5c6c7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    .title {
+        font-size: 4em;
+        color: #ffa500;
+        text-shadow: 1px 1px 2px #000;
+        padding: 20px;
+    }
+    .subtitle {
+        font-size: 1.5em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .description {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .btn-custom {
+        background-color: #6f42c1;
+        color: #fff;
+    }
+</style>
+<div class="text-center home_box">
+  <div class="title" style="font-family: 'Diphylleia', serif">기록 흥신소</div>
+  <div class="subtitle" style="font-family: 'Diphylleia', serif">
+    메모? 정리하지 마세요
+  </div>
+  <div class="description" style="font-family: 'Diphylleia', serif">
+    당신의 기록을 찾아드립니다.
+  </div>
+  <button class="btn btn-custom" id="start">시작하기</button>
+</div>
+{%endblock%}
