@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css'%}"/>
     <!--    <script src="{% static 'js/main.js' %}" defer></script>-->
 
@@ -156,7 +157,7 @@
             });
         });
 
-        $('#delete_home_btn').on('click', function (e) {
+        $('.delete-icon').on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
 
@@ -172,6 +173,12 @@
                     location.href ="/post_list"
                 }
             });
+        });
+
+        $('.modify-btn').on('click', function (e) {
+            let id = $(this).data('id');
+            console.log(id);
+            location.href = '/post/' + id;
         });
 
 
