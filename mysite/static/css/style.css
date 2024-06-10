@@ -141,3 +141,10 @@ html, body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border : #FCA311;
 }
+
+.answer {
+    background-color: #FCA311;
+    color: white;
+    border-radius: 8px;
+    padding: 5px;
+}

@@ -131,6 +131,20 @@
             });
         });
 
+        $('#delete_btn').on('click', function () {
+
+            $.ajax({
+                url: '/delete/{{post.id}}' ,
+                type: 'DELETE',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function(response) {
+                    location.href ="/"
+                }
+            });
+        });
+
     });
 </script>
 </body>
