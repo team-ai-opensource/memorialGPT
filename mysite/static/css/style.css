@@ -18,6 +18,14 @@ html, body {
     transform : translateX(0);
 }
 
+.toggle_visible_btn {
+    display: none;
+}
+
+.visible_btn {
+    display: inline-block;
+}
+
 .custom-nav{
     align-items: flex-end;
     align-content: stretch;
@@ -43,9 +51,15 @@ html, body {
     text-decoration: none;
     color : inherit;
 }
+
 .card-body{
     display: flex;
     flex-direction: column;
+}
+
+.card:hover .card-body .toggle_visible_btn{
+    display: block;
+
 }
 .card-title{
     flex: 0 1 auto;

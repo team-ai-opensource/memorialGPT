@@ -23,7 +23,7 @@
             <!-- 사이드바 내용 -->
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href=" "> 홈 </a>
+                    <a class="nav-link active" href="/post_list"> 홈 </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"> 설정 </a>
@@ -36,7 +36,7 @@
                     <button class="btn btn-primary custom-btn" type="button" id="sidebarToggle">
                         메뉴
                     </button>
-                    <a class="navbar-brand" href="/" style="font-family: 'Diphylleia',serif;">기록 흥신소</a>
+                    <a class="navbar-brand" href="/post_list" style="font-family: 'Diphylleia',serif;">기록 흥신소</a>
                 </div>
             </nav>
             <div class="main_content">
@@ -137,7 +137,7 @@
                     csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
                 },
                 success: function(response) {
-                    location.href ="/"
+                    location.href ="/post_list"
                 }
             });
         });
@@ -151,10 +151,29 @@
                     csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
                 },
                 success: function(response) {
-                    location.href ="/"
+                    location.href ="/post_list"
                 }
             });
         });
+
+        $('#delete_home_btn').on('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: '/delete/' + id ,
+                type: 'DELETE',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRF 토큰
+                },
+                success: function(response) {
+                    location.href ="/post_list"
+                }
+            });
+        });
+
 
     });
 </script>

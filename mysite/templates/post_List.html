@@ -17,6 +17,9 @@
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.content }}</p>
                     <h6 class="card-subtitle mb-2 text-muted">{{ post.date }}</h6>
+                    <button type="button" class="btn btn-primary toggle_visible_btn" id="update_home_btn" data-id="{{post.id}}">수정하기</button>
+                    <div style="height: 8px;" class="toggle_visible_btn"></div>
+                    <button type="button" class="btn btn-danger toggle_visible_btn" id="delete_home_btn" data-id="{{post.id}}">삭제하기</button>
                 </div>
             </a>
             {% endfor %}

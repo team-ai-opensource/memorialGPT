@@ -22,7 +22,7 @@ client = OpenAI(api_key=API_KEY)
 
 def read_post(request):
     posts = Post.objects.order_by('-date').all()
-    return render(request, 'home.html', {"posts": posts})
+    return render(request, 'post_list.html', {"posts": posts})
 
 def post_page(request, id):
     post = Post.objects.get(id=id)
