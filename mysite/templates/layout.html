@@ -114,8 +114,8 @@
         });
         $('#update_btn').on('click', function () {
 
-            title = $('#title').val();
-            content = $('#content').val();
+            title = $('#detail_title').val();
+            content = $('#detail_content').val();
 
             $.ajax({
                 url: '/update/{{post.id}}' ,

@@ -10,10 +10,10 @@
     <div>{{ post.date }}</div>
     <div class="input-group mb-3">
         <span class="input-group-text">제목</span>
-        <input type="text" class="form-control" placeholder="제목" aria-label="Title" aria-describedby="title" value="{{ post.title }}" id="title">
+        <input type="text" class="form-control" placeholder="제목" aria-label="Title" aria-describedby="title" value="{{ post.title }}" id="detail_title">
     </div>
 
-    <textarea id="content" class="form-control" style="height: 400px;" aria-label="With textarea">{{ post.content }}</textarea>
+    <textarea id="detail_content" class="form-control" style="height: 400px;" aria-label="With textarea">{{ post.content }}</textarea>
 </div>
 <script>
 
